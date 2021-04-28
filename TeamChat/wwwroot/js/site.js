@@ -5,7 +5,7 @@ var username;
 var messageInput;
 
 function initialise() {
-    //temp
+    // temp for testing.
     //clearcookie();
     username = document.getElementById('username');
     messageInput = document.getElementById('messageInput');
@@ -34,9 +34,6 @@ function updateDetails() {
     }
 
     window.location.reload(false);
-    //else {
-    //    window.location.reload(false);
-    //}
 }
 
 function handleKey(e) {
@@ -75,6 +72,7 @@ function getCookie(cname) {
             return c.substring(name.length, c.length);
         }
     }
+
     return "";
 }
 
