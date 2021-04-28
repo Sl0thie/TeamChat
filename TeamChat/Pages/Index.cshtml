@@ -1,0 +1,43 @@
+﻿@page
+
+    <div id="popupModal">
+        <div class="popup" id="popupForm">
+            <div style="margin:15px;">
+                <h2>User Details</h2>
+                <p>Please enter your username into the textbox below.</p>
+                <p>You can use any name you like, it does not need to be your real name.</p>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <input id="username" type="text" />
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <input id="Button1" type="button" value="ok" onclick="updateDetails()" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="divheader">
+        <div class="grow"><h1>TeamChat</h1></div>
+        <div style="padding-right:8px;padding-top:8px;"><img id="setup" src="/images/SettingsIconWhite.png" width="32" height="32" onclick="openSettings()" /></div>
+    </div>
+
+    <div class="divcontent">
+        <div class="maincontent" id="maincontent">
+            <ul id="messagesList"></ul>
+        </div>
+    </div>
+
+    <div class="divfooter">
+        <input id="Hidden1" type="hidden" />
+
+        <div class="maininput"><input type="text" id="messageInput" tabindex="1" /></div>
+        <div id="sendButton"><input type="button" id="sendButton" value="Send" onclick="sendmessage()" /></div>
+    </div>
+
+    <script src="/js/signalr/dist/browser/signalr.js"></script>
+    <script>initialise()</script>
