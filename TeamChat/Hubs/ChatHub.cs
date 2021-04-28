@@ -23,8 +23,32 @@
 
         public async Task SendMessage(string user, string message)
         {
-            await Clients.Others.SendAsync("ReceiveMessage", "<span class=\"sg\">[" + DateTime.Now.ToString("h:mm:ss") + "]</span><span class=\"sg\">[" + user + "]</span><span class=\"sb\">  " + message + "</span>");
-            await Clients.Caller.SendAsync("ReceiveMessage", "<span class=\"sg\">[" + DateTime.Now.ToString("h:mm:ss") + "]</span><span class=\"sg\">[" + user + "]</span><span class=\"sg\">  " + message + "</span>");
+            if (message.Substring(0,1) == "/")
+            {
+                if(message.IndexOf(" ") > 0)
+                {
+                    string command = message.Substring(1, message.IndexOf(" ")).ToLower();
+                    string parameters = message.Substring(message.IndexOf(" ") + 1);
+
+                    switch (command)
+                    {
+                        case "help":
+                            await Clients.Caller.SendAsync("ReceiveMessage", "<span class=\"sg\">[" + DateTime.Now.ToString("h:mm:ss") + "]</span><span class=\"sg\">[Server]</span><span class=\"sb\">  The following commands are available on this server:</span>");
+                            await Clients.Caller.SendAsync("ReceiveMessage", "<span class=\"sg\">[" + DateTime.Now.ToString("h:mm:ss") + "]</span><span class=\"sg\">[Server]</span><span class=\"sb\">      help : display help for the commands.</span>");
+                            break;
+                    }
+                }
+                else
+                {
+                    await Clients.Caller.SendAsync("ReceiveMessage", "<span class=\"sg\">[" + DateTime.Now.ToString("h:mm:ss") + "]</span><span class=\"sg\">[" + user + "]</span><span class=\"sg\">  " + message + "</span>");
+                    await Clients.Caller.SendAsync("ReceiveMessage", "<span class=\"sg\">[" + DateTime.Now.ToString("h:mm:ss") + "]</span><span class=\"sg\">[Server]</span><span class=\"sb\">  Unknown Command.</span>");
+                }
+            }
+            else
+            {
+                await Clients.Others.SendAsync("ReceiveMessage", "<span class=\"sg\">[" + DateTime.Now.ToString("h:mm:ss") + "]</span><span class=\"sg\">[" + user + "]</span><span class=\"sb\">  " + message + "</span>");
+                await Clients.Caller.SendAsync("ReceiveMessage", "<span class=\"sg\">[" + DateTime.Now.ToString("h:mm:ss") + "]</span><span class=\"sg\">[" + user + "]</span><span class=\"sg\">  " + message + "</span>");
+            }
         }
 
         public async Task SendHello(string username)
